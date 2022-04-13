@@ -1,10 +1,8 @@
 #Python
-from doctest import Example
-from email.policy import default
-from importlib.resources import path
+
 from typing import Optional
 from enum import Enum
-from unittest.util import _MAX_LENGTH
+
 
 
 #Pydantic
@@ -14,6 +12,7 @@ from pydantic import Field
 #FastApi
 from fastapi import FastAPI
 from fastapi import status
+from fastapi import HTTPException
 from fastapi import Body, Query, Path, Form, Header, Cookie, UploadFile, File
 
 
@@ -151,6 +150,8 @@ def show_person(
 ):
     return {name:age}
 
+persons = [1,2,3,4,5]
+
 @app.get(
     path="/person/detail/{person_id}",
     status_code=status.HTTP_200_OK
@@ -164,6 +165,11 @@ def show_person(
         description="This is the person Id. It's an integer"
         )
 ):
+    if person_id not in persons:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="!This person doesn't exist"
+        ) 
     return {person_id: "It exists!"}
 
 #Validaciones: request Body
