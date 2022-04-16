@@ -112,7 +112,8 @@ class LoginOut(BaseModel):
 
 @app.get(
     path="/",
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_200_OK,
+    tags=["Persons"]
  )
 def home():
     return{"Hello": "Backends de TrebolCode"}
@@ -121,7 +122,8 @@ def home():
 @app.post(
     path="/person/new",
     response_model=PersonOut,
-    status_code=status.HTTP_201_CREATED
+    status_code=status.HTTP_201_CREATED,
+    tags=["Persons"]
     )
 def create_person(person: Person = Body(...)):
     return person
@@ -129,8 +131,8 @@ def create_person(person: Person = Body(...)):
 #Validaciones: Query Parameters
 @app.get(
     path="/person/detail",
-    status_code=status.HTTP_200_OK
-    
+    status_code=status.HTTP_200_OK,
+    tags=["Persons"]    
     )
 def show_person(
     name: Optional[str] = Query(
@@ -154,7 +156,8 @@ persons = [1,2,3,4,5]
 
 @app.get(
     path="/person/detail/{person_id}",
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_200_OK,
+    tags=["Persons"]
     )
 def show_person(
     person_id: int = Path(
@@ -175,7 +178,8 @@ def show_person(
 #Validaciones: request Body
 @app.put(
     path="/person/{person_id}",
-    status_code=status.HTTP_202_ACCEPTED
+    status_code=status.HTTP_202_ACCEPTED,
+    tags=["Persons"]
     )
 def update_person(
 
