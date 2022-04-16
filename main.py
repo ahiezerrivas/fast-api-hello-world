@@ -146,7 +146,8 @@ def create_person(person: Person = Body(...)):
 @app.get(
     path="/person/detail",
     status_code=status.HTTP_200_OK,
-    tags=["Persons"]    
+    tags=["Persons"],
+    deprecated=True
     )
 def show_person(
     name: Optional[str] = Query(
@@ -156,6 +157,7 @@ def show_person(
         title="Person Name",
         description="This is the person name. It's between 1 and 50 charactares",
         example="Rocio"
+        
         ),
     age: str = Query(
         ...,
